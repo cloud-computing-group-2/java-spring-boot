@@ -1,0 +1,156 @@
+{
+  "info": {
+    "name": "Flight and Plane API",
+    "_postman_id": "abcd1234-abcd-1234-abcd-1234abcd1234",
+    "description": "API for managing planes and flights",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Plane",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"model\": \"Boeing 737\", \"manufacturer\": \"Boeing\", \"capacity\": 180}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/plane",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["plane"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Planes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/plane/all",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["plane", "all"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Plane by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/plane/1",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["plane", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Plane",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"model\": \"Boeing 777\", \"manufacturer\": \"Boeing\", \"capacity\": 350}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/plane/1",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["plane", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Plane",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/plane/1",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["plane", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Flight",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"origin\": \"New York\", \"destination\": \"London\", \"departure\": \"2025-12-25T12:00:00\", \"arrival\": \"2025-12-25T18:00:00\", \"plane\": {\"id\": 1}}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/flight",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["flight"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Flights",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/flight/all",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["flight", "all"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
+
