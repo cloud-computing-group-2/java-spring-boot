@@ -1,16 +1,23 @@
-FROM maven:3.9.2-eclipse-temurin-17 AS builder
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
 COPY pom.xml .
+RUN mvn -q dependency:go-offline
+
 COPY src ./src
+RUN mvn -q -Dmaven.test.skip=true clean package
 
-RUN mvn clean package -DskipTests
-
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
+
+RUN useradd -r -s /bin/false spring
+USER spring
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENV JAVA_OPTS="-Xms256m -Xmx512m"
+
+ENTRYPOINT ["sh","-c","java $JAVA_OPTS -jar /app/app.jar"]
+

@@ -14,8 +14,10 @@ import java.time.LocalDateTime;
 public class FlightRequestDto {
 
     @NotNull
-    @Valid
     private Long idPlane;
+
+    @NotNull
+    private Long idPilot;
 
     @NotNull
     private String origin;

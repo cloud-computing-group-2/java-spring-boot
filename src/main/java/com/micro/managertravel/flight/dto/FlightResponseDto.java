@@ -1,5 +1,6 @@
 package com.micro.managertravel.flight.dto;
 
+import com.micro.managertravel.pilot.dto.PilotResponseDto;
 import com.micro.managertravel.plane.dto.PlaneRequestDto;
 import com.micro.managertravel.plane.dto.PlaneResponseDto;
 import jakarta.validation.Valid;
@@ -14,9 +15,14 @@ import java.time.LocalDateTime;
 public class FlightResponseDto {
     @NotNull
     private Long id;
+
     @NotNull
     @Valid
     private PlaneResponseDto planeDto;
+
+    @NotNull
+    @Valid
+    private PilotResponseDto pilotDto;
 
     @NotNull
     private String origin;
