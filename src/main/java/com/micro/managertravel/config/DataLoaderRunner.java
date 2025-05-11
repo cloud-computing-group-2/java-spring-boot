@@ -18,3 +18,5 @@ public class DataLoaderRunner implements CommandLineRunner {
         dataLoader.loadFlightsData();
     }
 }
+
+

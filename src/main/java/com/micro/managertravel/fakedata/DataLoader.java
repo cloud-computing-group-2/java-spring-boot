@@ -28,14 +28,18 @@ public class DataLoader {
     private final Faker faker = new Faker();
 
     public void loadPilotsData() {
+
+        if (pilotRepository.count() >= 20000) {
+            System.out.println("Pilots data already exists.");
+            return; // Si ya hay datos, no cargues nuevos
+        }
+
         List<Pilot> pilots = new ArrayList<>();
 
         for (int i = 0; i < 20000; i++) {
-
             String name = faker.name().fullName();
-            String gender = faker.options().option("Male", "Female");  // Generar género de forma aleatoria
-            LocalDate birthDate = faker.date().birthday(25, 60).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate(); // Edad entre 25 y 60 años
-
+            String gender = faker.options().option("Male", "Female");
+            LocalDate birthDate = faker.date().birthday(25, 60).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
             Pilot pilot = new Pilot(name, gender, birthDate);
             pilots.add(pilot);
         }
@@ -44,6 +48,12 @@ public class DataLoader {
     }
 
     public void loadPlanesData() {
+
+        if (planeRepository.count() >= 20000) {
+            System.out.println("planes data already exists.");
+            return;
+        }
+
         List<Plane> planes = new ArrayList<>();
 
         for (int i = 0; i < 20000; i++) {
@@ -57,6 +67,11 @@ public class DataLoader {
     }
 
     public void loadFlightsData() {
+
+        if (flightRepository.count() >= 20000) {
+            System.out.println("Flights data already exists.");
+            return; // Si ya hay datos, no cargues nuevos
+        }
 
         loadPilotsData();
         loadPlanesData();
@@ -72,8 +87,8 @@ public class DataLoader {
             LocalDateTime departure = faker.date().future(10, java.util.concurrent.TimeUnit.DAYS).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime();
             LocalDateTime arrival = departure.plusHours(faker.number().numberBetween(2, 8));
 
-            Plane plane = planes.get(faker.number().numberBetween(0, planes.size()));  // Seleccionar un avión aleatorio
-            Pilot pilot = pilotos.get(faker.number().numberBetween(0, pilotos.size()));  // Seleccionar un piloto aleatorio
+            Plane plane = planes.get(faker.number().numberBetween(0, planes.size()));
+            Pilot pilot = pilotos.get(faker.number().numberBetween(0, pilotos.size()));
 
             Flight flight = new Flight(origin, destination, departure, arrival, plane, pilot);
             flights.add(flight);
