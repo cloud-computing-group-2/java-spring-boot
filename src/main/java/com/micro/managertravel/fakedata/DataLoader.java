@@ -67,7 +67,7 @@ public class DataLoader {
     }
 
     public void loadFlightsData() {
-/*
+
         if (flightRepository.count() >= 20000) {
             System.out.println("Flights data already exists.");
             return; // Si ya hay datos, no cargues nuevos
@@ -95,7 +95,7 @@ public class DataLoader {
         }
 
         flightRepository.saveAll(flights);
-*/
+
     }
 
 
