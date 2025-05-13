@@ -13,9 +13,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Mi API")
+                        .title("Documentacion | Manager Travel")
                         .version("1.0.0")
-                        .description("Descripción de la API para gestión de recursos")
+                        .description("some")
                         .contact(new Contact()
                                 .name("Soporte Técnico")
                                 .email("soporte@midominio.com")));

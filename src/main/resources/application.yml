@@ -7,7 +7,7 @@ spring:
     password: ${DB_PASS:postgres}
   jpa:
     hibernate:
-      ddl-auto: ${DDL_AUTO:create-drop}          # create-drop, update, validate, none?
+      ddl-auto: ${DDL_AUTO:update}          # create-drop, update, validate, none?
     show-sql: ${SHOW_SQL:true}
     properties:
       hibernate:

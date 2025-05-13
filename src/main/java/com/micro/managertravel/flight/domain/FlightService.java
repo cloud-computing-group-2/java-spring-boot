@@ -34,8 +34,8 @@ public class FlightService {
     public FlightResponseDto createFlight(FlightRequestDto flightRequestDto) {
         // fix: can create flights w the same plane at th same date
 
-        Plane plane = planeRepository.findById(flightRequestDto.getIdPlane()).get();
-        Pilot pilot = pilotRepository.findById(flightRequestDto.getIdPilot()).get();
+        Plane plane = planeRepository.findById(flightRequestDto.getIdPlane()).orElseThrow();
+        Pilot pilot = pilotRepository.findById(flightRequestDto.getIdPilot()).orElseThrow();
 
         Flight flight = new Flight();
         flight.setDeparture(flightRequestDto.getDeparture());
@@ -52,6 +52,7 @@ public class FlightService {
         PilotResponseDto pilotResponseDto = modelMapper.map(pilot, PilotResponseDto.class);
 
         flightResponseDto.setPlaneDto(planeResponseDto);
+        flightResponseDto.setPilotDto(pilotResponseDto);
 
         return flightResponseDto;
     }
@@ -73,20 +74,20 @@ public class FlightService {
     }
 
     public FlightResponseDto getFlightById(Long id) {
-        Flight flight = flightRepository.findById(id).orElse(null);
+        Flight flight = flightRepository.findById(id).orElseThrow();
         FlightResponseDto flightResponseDto = modelMapper.map(flight, FlightResponseDto.class);
         return flightResponseDto;
     }
 
     public FlightResponseDto updateFlight(Long id, FlightRequestDto flightRequestDto) {
-        Flight flight = flightRepository.findById(id).orElse(null);
+        Flight flight = flightRepository.findById(id).orElseThrow();
         flight.setArrival(flightRequestDto.getArrival());
         flight.setDeparture(flightRequestDto.getDeparture());
         flight.setDestination(flightRequestDto.getDestination());
         flight.setOrigin(flightRequestDto.getOrigin());
 
-        Plane plane = planeRepository.findById(flightRequestDto.getIdPlane()).orElse(null);
-        Pilot pilot = pilotRepository.findById(flightRequestDto.getIdPilot()).orElse(null);
+        Plane plane = planeRepository.findById(flightRequestDto.getIdPlane()).orElseThrow();
+        Pilot pilot = pilotRepository.findById(flightRequestDto.getIdPilot()).orElseThrow();
         flight.setPlane(plane);
         flight.setPilot(pilot);
 
