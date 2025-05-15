@@ -7,6 +7,8 @@ import com.micro.managertravel.flight.dto.FlightResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.net.URI;
 import java.util.List;
@@ -47,4 +49,11 @@ public class FlightController {
         flightService.deleteFlightById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/paged")
+    public ResponseEntity<Page<FlightResponseDto>> getFlightsPaged(Pageable pageable) {
+        Page<FlightResponseDto> page = flightService.getFlightsPaged(pageable);
+        return ResponseEntity.ok(page);
+    }
+
 }

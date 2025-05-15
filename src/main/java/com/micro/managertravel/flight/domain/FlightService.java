@@ -11,6 +11,9 @@ import com.micro.managertravel.plane.dto.PlaneResponseDto;
 import com.micro.managertravel.plane.infraestructure.PlaneRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -95,6 +98,22 @@ public class FlightService {
         FlightResponseDto flightResponseDto = modelMapper.map(flight, FlightResponseDto.class);
         return flightResponseDto;
 
+    }
+
+    public Page<FlightResponseDto> getFlightsPaged(Pageable pageable) {
+
+        Page<Flight> flights = flightRepository.findAll(pageable);
+
+        return flights.map(flight -> {
+            FlightResponseDto flightResponseDto = modelMapper.map(flight, FlightResponseDto.class);
+            PlaneResponseDto planeResponseDto = modelMapper.map(flight.getPlane(), PlaneResponseDto.class);
+            PilotResponseDto pilotResponseDto = modelMapper.map(flight.getPilot(), PilotResponseDto.class);
+
+            flightResponseDto.setPlaneDto(planeResponseDto);
+            flightResponseDto.setPilotDto(pilotResponseDto);
+
+            return flightResponseDto;
+        });
     }
 
     public void deleteFlightById(Long id) {
