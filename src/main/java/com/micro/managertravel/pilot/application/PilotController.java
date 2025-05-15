@@ -1,10 +1,13 @@
 package com.micro.managertravel.pilot.application;
 
+
 import com.micro.managertravel.pilot.domain.PilotService;
 
 import com.micro.managertravel.pilot.dto.PilotRequestDto;
 import com.micro.managertravel.pilot.dto.PilotResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +48,12 @@ public class PilotController {
     public ResponseEntity<Void> deletePilot(@PathVariable Long id) {
         pilotService.deletePilotById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/paged")
+    public ResponseEntity<Page<PilotResponseDto>> getPilotsPaged(Pageable pageable) {
+        Page<PilotResponseDto> page = pilotService.getPilotsPaged(pageable);
+        return ResponseEntity.ok(page);
     }
 
 }

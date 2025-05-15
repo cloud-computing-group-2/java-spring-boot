@@ -6,6 +6,8 @@ import com.micro.managertravel.pilot.dto.PilotResponseDto;
 import com.micro.managertravel.pilot.infraestructure.PilotRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,4 +65,15 @@ public class PilotService {
         Pilot pilot = pilotRepository.findById(pilotId).orElse(null);
         pilotRepository.deleteById(pilotId);
     }
+
+    public Page<PilotResponseDto> getPilotsPaged(Pageable pageable) {
+
+        Page<Pilot> pilots = pilotRepository.findAll(pageable);
+
+        return pilots.map(pilot -> {
+            PilotResponseDto pilotResponseDto = modelMapper.map(pilot, PilotResponseDto.class);
+            return pilotResponseDto;
+        });
+    }
+
 }

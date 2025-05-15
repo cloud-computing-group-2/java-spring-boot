@@ -4,6 +4,8 @@ import com.micro.managertravel.plane.domain.PlaneService;
 import com.micro.managertravel.plane.dto.PlaneRequestDto;
 import com.micro.managertravel.plane.dto.PlaneResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,6 +50,12 @@ public class PlaneController {
     public ResponseEntity<Void> deletePlane(@PathVariable Long id) {
         planeService.deletePlaneById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/paged")
+    public ResponseEntity<Page<PlaneResponseDto>> getPlanesPaged(Pageable pageable) {
+        Page<PlaneResponseDto> page = planeService.getPlanesPaged(pageable);
+        return ResponseEntity.ok(page);
     }
 
 }
